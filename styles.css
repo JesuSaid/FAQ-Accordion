@@ -1,0 +1,23 @@
+:root {
+    --font-family-base: Work Sans, sans-serif;
+    --color-text: hsl(292, 42%, 14%);
+    --color-accent: hsl(281, 83%, 54%);
+    --color-text-muted: hsl(292, 16%, 49%);
+    --color-background: hsl(275, 100%, 97%);
+    --color-surface: hsl(0, 100%, 100%);
+
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-family-base);
+    font-size: 1rem;
+}
+
+.faq__trigger {
+    font: inherit;
+}
