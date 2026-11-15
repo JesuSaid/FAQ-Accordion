@@ -92,6 +92,10 @@ body {
     color: inherit;
 }
 
+.faq__trigger:hover, .faq__trigger:focus-visible {
+    color: var(--color-accent)
+}
+
 .faq__icon {
     grid-row: 1;
     grid-column: 2/3;
@@ -104,4 +108,38 @@ body {
     color: var(--color-text-muted);
     font-size: 0.875rem;
     line-height: 1.3125rem;
+}
+
+@media screen and (min-width: 38rem) {
+    body {
+        background-image: url('./assets/images/background-pattern-desktop.svg');
+    }
+
+    .faq {
+        padding: 2.5rem;
+        max-width: 600px;
+        width: 100%;
+        border-radius: 1rem;
+    }
+
+    .faq__header {
+        gap: 1.5rem;
+    }
+
+    .faq__header > img {
+        width: 2.5rem;
+    }
+
+    .faq__header > h1 {
+        font-size: 3.5rem;
+    }
+
+    .faq__item > h2 {
+        font-size: 1.125rem;
+    }
+
+    .faq__answer {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
 }
