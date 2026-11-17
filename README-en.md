@@ -1,113 +1,103 @@
-# Frontend Mentor - FAQ accordion solution
+﻿# FAQ Accordion · Frontend Mentor
 
-This is a solution to the [FAQ accordion challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/faq-accordion-wyfFdeBwBz). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+A frequently asked questions accordion built with HTML, CSS and JavaScript for the [Frontend Mentor FAQ Accordion challenge](https://www.frontendmentor.io/challenges/faq-accordion-wyfFdeBwBz). The goal was to practice semantic structure, responsive design and accessible interaction while understanding each implementation decision.
 
-## Table of contents
+[Versión en español](./README.md) · [Repository](https://github.com/JesuSaid/FAQ-Accordion)
 
-- [Overview](#overview)
-  - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
+## Result
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
+### Desktop
 
-## Overview
+![Desktop FAQ accordion with the first answer expanded](./assets/images/Desktop.png)
 
-### The challenge
+### Mobile
 
-Users should be able to:
+![Mobile FAQ accordion with questions wrapping to the available width](./assets/images/Mobile.png)
 
-- Hide/Show the answer to a question when the question is clicked
-- Navigate the questions and hide/show answers using keyboard navigation alone
-- View the optimal layout for the interface depending on their device's screen size
-- See hover and focus states for all interactive elements on the page
+## Features
 
-### Screenshot
+- Expand or collapse each answer by activating its question.
+- Navigate with Tab and Shift + Tab and activate buttons with Enter or Space.
+- Keep multiple answers open or close all answers independently.
+- Show the first answer initially and hide the remaining three.
+- Automatically switch between plus and minus icons according to state.
+- Adapt the layout to mobile and desktop, with hover and visible focus states.
 
-![](./screenshot.jpg)
+## Technologies and structure
 
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
+A static project without frameworks, dependencies or a build step.
 
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
+| File | Responsibility |
+| --- | --- |
+| `index.html` | Content, semantic structure, controls and initial states |
+| `fonts.css` | Local Work Sans font declarations for weights 400, 600 and 700 |
+| `styles.css` | Tokens, mobile-first layout, Grid, Flexbox and visual states |
+| `script.js` | Events and synchronization of each answer's state |
+| `assets/` | Fonts, SVG backgrounds, icons and result screenshots |
 
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
+To run the project, download or clone the repository and open `index.html` in a browser. A local static server also works. No package installation is required. The script uses `defer` to execute after the HTML has been parsed.
 
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+## Process and lessons learned
 
-### Links
+### Semantic HTML and native controls
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+Content is organized inside `main`, with a header containing a single `h1` and a list of questions. Each question uses a button inside an `h2`: the heading provides hierarchy, while the button offers native focus and keyboard activation. `type="button"` explicitly makes it a non-submit control.
 
-## My process
+The star and action icons use `alt=""` because they are decorative; the question text supplies the button's accessible name. The document uses `lang="en"` because the FAQ content is in English, regardless of this documentation's language.
 
-### Built with
+### Mobile-first design and tokens
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
+Base styles target small screens, and a `min-width: 38rem` media query adds desktop enhancements. The implementation was informed by `style-guide.md`, the visual references and the design recreation in Penpot.
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+Colors and the font family are centralized as semantic custom properties in `:root`. Fonts are hosted locally with `font-display: swap` and a generic fallback family. Buttons use `font: inherit` and `color: inherit` to match the surrounding typography.
 
-### What I learned
+The card uses 24px padding on mobile and 40px on desktop, with a maximum width of 600px in the larger layout. Flexbox handles centering without excessive side margins or fixed heights that could clip answers. Logical properties such as `margin-inline`, `padding-block` and `border-block-end` define spacing and dividers.
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+### Grid for text and icons
 
-To see how you can add code snippets, see below:
+Classes follow BEM, including elements such as `faq__trigger` and modifiers such as `faq__icon--plus`.
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
-```
+Each button uses two columns: `minmax(0, 1fr)` for the question and 30px for the icon. Text is wrapped in a `span`; both icons share the same cell, and CSS displays only the appropriate one. Questions can wrap while the icon stays at the end and vertically centered, without participating in the text baseline.
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+### JavaScript and accessibility
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+Each button references its answer through `aria-controls`, matching a unique answer `id`. `aria-expanded` communicates whether the answer is open, while `hidden` controls its actual visibility: ARIA alone does not hide content.
 
-### Continued development
+JavaScript selects buttons with `querySelectorAll`, loops over them with `forEach` and registers a `click` event on each one. `event.currentTarget` identifies the button even when its text or icon is clicked; `getAttribute` and `getElementById` locate the associated answer.
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+The handler compares the state against the string `"true"`, updates `aria-expanded`, and adds or removes `hidden`. CSS reacts to the attribute to switch icons, keeping that visual logic out of JavaScript. Other lessons included declaring variables with `const` and distinguishing strings from booleans: `"false"` is still a non-empty string.
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+Native buttons already translate Enter and Space into activation, so no extra keyboard handler was added that could toggle the state twice.
 
-### Useful resources
+### Git and incremental work
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+Development was divided into milestones: HTML structure, icons and classes, fonts and base styles, mobile layout, desktop adaptation and interaction. Commits were written in English using prefixes such as `feat` and `feat(ui)`, with Git status reviews and whitespace checks using `git diff --check`.
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+## Checks performed
 
-## Author
+Manual reviews were carried out during development, with screenshots shared to inspect the results:
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Responsive layouts at 320, 375, 768 and 1440px, plus 607, 608 and 609px around the breakpoint.
+- First answer open, all answers open and all answers closed; inspection of wrapping, alignment and access to content by scrolling.
+- Mouse and keyboard activation and visible focus review.
+- Browser zoom at 200% and 400%, checked manually during the challenge.
+- HTML validation without errors or warnings and CSS validation with W3C.
+- Manual console and reload checks without observed errors.
 
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
+These checks are not a complete accessibility audit or automated test suite. When JavaScript is disabled, answers initially marked with `hidden` remain hidden; improving that fallback is a possible next step.
 
-## Acknowledgments
+## Further practice
 
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
+- Progressive enhancement so all content remains available if JavaScript fails to load.
+- Screen reader and cross-browser checks.
+- Automated interaction and accessibility tests.
+- Fluid sizing when it improves clarity and makes transitions between sizes more gradual.
 
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+## References and credits
+
+- [Design and style guide in Penpot](https://design.penpot.app/?screen=workspace&team-id=2f1be954-9d1b-812a-8008-e7176a4d30b3&file-id=51f2d744-23b9-8138-8008-ee55742de2de&page-id=b7131c01-4263-8038-8008-ee605b391a46)
+- [WAI-ARIA accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/)
+- [HTML validator](https://validator.w3.org/nu/) and [CSS validator](https://jigsaw.w3.org/css-validator/)
+- Challenge and visual assets provided by Frontend Mentor. Author: [JesuSaid](https://github.com/JesuSaid).
+
+Codex was used to support planning, explain concepts, review progress and draft this documentation. Implementation and manual checks were completed through guided work during the challenge.
