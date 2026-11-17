@@ -1,109 +1,103 @@
-# Frontend Mentor - FAQ accordion
+﻿# FAQ Accordion · Frontend Mentor
 
-![Design preview for the FAQ accordion coding challenge](preview.jpg)
+Acordeón de preguntas frecuentes desarrollado con HTML, CSS y JavaScript como solución al [reto FAQ Accordion de Frontend Mentor](https://www.frontendmentor.io/challenges/faq-accordion-wyfFdeBwBz). El objetivo fue practicar estructura semántica, diseño responsive e interacción accesible, entendiendo cada decisión durante el desarrollo.
 
-## Welcome! 👋
+[English version](./REAMDE-en.md) · [Repositorio](https://github.com/JesuSaid/FAQ-Accordion)
 
-Thanks for checking out this front-end coding challenge.
+## Resultado
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
+### Escritorio
 
-**To do this challenge, you need a basic understanding of HTML, CSS and JavaScript.**
+![Acordeón FAQ en escritorio, con la primera respuesta abierta](./assets/images/Desktop.png)
 
-## The challenge
+### Móvil
 
-Your challenge is to build out this FAQ accordion and get it looking as close to the design as possible.
+![Acordeón FAQ en móvil, con las preguntas adaptadas al ancho disponible](./assets/images/Mobile.png)
 
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
+## Funcionalidades
 
-Your users should be able to:
+- Abrir y cerrar cada respuesta pulsando su pregunta.
+- Navegar con Tab y Shift + Tab y activar los botones con Enter o Espacio.
+- Mantener varias respuestas abiertas o cerrar todas de forma independiente.
+- Mostrar inicialmente la primera respuesta y mantener las otras tres ocultas.
+- Cambiar automáticamente entre los iconos plus y minus según el estado.
+- Adaptar la presentación a móvil y escritorio, con estados de hover y foco visible.
 
-- Hide/Show the answer to a question when the question is clicked
-- Navigate the questions and hide/show answers using keyboard navigation alone
-- View the optimal layout for the interface depending on their device's screen size
-- See hover and focus states for all interactive elements on the page
+## Tecnologías y organización
 
-### Want some support on the challenge? 
+Proyecto estático, sin frameworks, dependencias ni proceso de compilación.
 
-[Join our community](https://www.frontendmentor.io/community) and ask questions in the **#help** channel.
+| Archivo | Responsabilidad |
+| --- | --- |
+| `index.html` | Contenido, estructura semántica, controles y estados iniciales |
+| `fonts.css` | Declaraciones locales de Work Sans en pesos 400, 600 y 700 |
+| `styles.css` | Tokens, diseño mobile-first, Grid, Flexbox y estados visuales |
+| `script.js` | Eventos y sincronización del estado de cada respuesta |
+| `assets/` | Fuentes, fondos SVG, iconos y capturas del resultado |
 
-## Where to find everything
+Para ejecutarlo, descarga o clona el repositorio y abre `index.html` en un navegador. También puedes utilizar un servidor estático local. No requiere instalación de paquetes. El script se carga con `defer` para ejecutarse después de analizar el HTML.
 
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design.
+## Proceso y aprendizajes
 
-The designs are in JPG static format. Using JPGs will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`.
+### HTML semántico y controles nativos
 
-If you would like the Figma design file to inspect the design in more detail, you can [subscribe as a PRO member](https://www.frontendmentor.io/pro).
+El contenido se organiza en `main`, un encabezado con un único `h1` y una lista de preguntas. Cada pregunta utiliza un botón dentro de un `h2`: el encabezado aporta jerarquía y el botón ofrece foco y activación nativos con teclado. Se usa `type="button"` para indicar que el control no envía formularios.
 
-All the required assets for this project are in the `/assets` folder. The images are already exported for the correct screen size and optimized.
+La estrella y los iconos tienen `alt=""` porque son decorativos; el texto de la pregunta proporciona el nombre del botón. El documento conserva `lang="en"` porque el contenido de las preguntas está en inglés, independientemente del idioma de este README.
 
-We also include variable and static font files for the required fonts for this project. You can choose to either link to Google Fonts or use the local font files to host the fonts yourself. Note that we've removed the static font files for the font weights that aren't needed for this project.
+### Diseño mobile-first y tokens
 
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
+Los estilos base atienden pantallas pequeñas y una media query con `min-width: 38rem` incorpora las mejoras para escritorio. Se consultaron `style-guide.md`, las referencias visuales y la recreación del diseño en Penpot.
 
-## Using AI coding assistants
+Se centralizaron colores y familia tipográfica en propiedades personalizadas semánticas dentro de `:root`. Las fuentes se sirven localmente con `font-display: swap` y una familia genérica de respaldo. Los botones usan `font: inherit` y `color: inherit` para integrarse con la tipografía del contenido.
 
-We've included two files to help you if you're using AI coding assistants (like Claude, GitHub Copilot, Cursor, etc.) while working on this challenge:
+La tarjeta utiliza padding de 24px en móvil y 40px en escritorio, con un ancho máximo de 600px en la vista grande. El centrado depende de Flexbox, sin márgenes laterales excesivos ni alturas fijas que recorten respuestas. Propiedades lógicas como `margin-inline`, `padding-block` y `border-block-end` expresan espacios y divisores.
 
-- `AGENTS.md` - Contains detailed instructions for AI assistants on how to help you with this challenge. It's tailored to this challenge's difficulty level, so the AI will provide guidance appropriate to your learning stage—offering more support for beginner challenges and encouraging more independence on advanced ones.
-- `CLAUDE.md` - A pointer file that directs Claude-based tools to the AGENTS.md instructions.
+### Grid para texto e iconos
 
-**How to use them:** You don't need to do anything! These files are automatically detected by most AI coding tools. The AI will read them and adjust its behavior to be a better learning partner—guiding you toward solutions rather than just giving you the answers.
+Las clases siguen BEM, con elementos como `faq__trigger` y modificadores como `faq__icon--plus`.
 
-**Note:** These files are designed to help you *learn*, not to do the work for you. The AI is instructed to ask questions, give hints, and explain concepts rather than writing complete solutions.
+Cada botón usa dos columnas: `minmax(0, 1fr)` para la pregunta y 30px para el icono. El texto se agrupa en un `span`; ambos iconos ocupan la misma celda y CSS muestra solo el correspondiente. Así, una pregunta puede ocupar varias líneas mientras el icono permanece al extremo y centrado verticalmente, sin participar en la línea base del texto.
 
-## Building your project
+### JavaScript y accesibilidad
 
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
+Cada botón se relaciona con su respuesta mediante `aria-controls`, cuyo valor coincide con un `id` único. `aria-expanded` comunica si la respuesta está abierta y `hidden` controla su visibilidad real: ARIA por sí solo no oculta contenido.
 
-1. Initialize your project as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/).
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
+JavaScript selecciona los botones con `querySelectorAll`, los recorre con `forEach` y registra un evento `click` en cada uno. `event.currentTarget` identifica el botón aunque se pulse el texto o el icono; `getAttribute` y `getElementById` permiten localizar la respuesta asociada.
 
-## Deploying your project
+El manejador compara el estado con la cadena `"true"`, actualiza `aria-expanded` y añade o elimina `hidden`. CSS responde al atributo para cambiar el icono, evitando duplicar esa lógica en JavaScript. Se aprendió también a declarar variables con `const` y a distinguir cadenas de booleanos: `"false"` sigue siendo una cadena no vacía.
 
-As mentioned above, there are many ways to host your project for free. Our recommended hosts are:
+Los botones nativos ya convierten Enter y Espacio en activación, por lo que no se añadió un manejador de teclado que pudiera alternar dos veces el estado.
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+### Git y trabajo por etapas
 
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://www.frontendmentor.io/guides/hosting-your-solution).
+El desarrollo se dividió en hitos: estructura HTML, iconos y clases, fuentes y estilos base, diseño móvil, adaptación a escritorio e interacción. Se utilizaron commits en inglés con prefijos como `feat` y `feat(ui)`, revisando el estado de Git y los espacios sobrantes con `git diff --check`.
 
-## Create a custom `README.md`
+## Comprobaciones realizadas
 
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
+Durante el desarrollo se realizaron revisiones manuales y se compartieron capturas de los resultados:
 
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
+- Responsive a 320, 375, 768 y 1440px, además de 607, 608 y 609px alrededor del breakpoint.
+- Primera respuesta abierta, todas abiertas y todas cerradas; revisión de ajuste del texto, alineación y acceso al contenido mediante desplazamiento.
+- Activación con ratón y teclado y revisión del foco visible.
+- Zoom al 200% y 400%, comprobado manualmente durante el reto.
+- Validación del HTML sin errores ni advertencias y validación de CSS con W3C.
+- Revisión manual de consola y recarga sin errores observados.
 
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
+Estas comprobaciones no equivalen a una auditoría completa de accesibilidad ni a pruebas automatizadas. Con JavaScript desactivado, las respuestas marcadas inicialmente con `hidden` permanecen ocultas; mejorar ese comportamiento es una posible evolución.
 
-## Submitting your solution
+## Qué seguir practicando
 
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://www.frontendmentor.io/guides/how-to-submit-solutions) for tips on how to do this.
+- Mejora progresiva para que todo el contenido siga disponible si JavaScript no carga.
+- Comprobaciones con lectores de pantalla y distintos navegadores.
+- Pruebas automatizadas de interacción y accesibilidad.
+- Medidas fluidas cuando aporten claridad y una transición más gradual entre tamaños.
 
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
+## Referencias y créditos
 
-## Sharing your solution
+- [Diseño y guía en Penpot](https://design.penpot.app/?screen=workspace&team-id=2f1be954-9d1b-812a-8008-e7176a4d30b3&file-id=51f2d744-23b9-8138-8008-ee55742de2de&page-id=b7131c01-4263-8038-8008-ee605b391a46)
+- [Patrón de acordeón de WAI-ARIA](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/)
+- [Validador de HTML](https://validator.w3.org/nu/) y [validador de CSS](https://jigsaw.w3.org/css-validator/)
+- Reto y recursos visuales proporcionados por Frontend Mentor. Autor: [JesuSaid](https://github.com/JesuSaid).
 
-There are multiple places you can share your solution:
-
-1. Share your solution page in the **#finished-projects** channel of our [community](https://www.frontendmentor.io/community).
-2. Share on [X (formerly Twitter)](https://x.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in your post. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on [LinkedIn](https://www.linkedin.com/company/frontend-mentor/).
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
-
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback.
-
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
-
-## Got feedback for us?
-
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
-
-This challenge is completely free. Please share it with anyone who will find it useful for practice.
-
-**Have fun building!** 🚀
+Se utilizó Codex como apoyo para planificar etapas, explicar conceptos, revisar avances y redactar esta documentación. La implementación y las comprobaciones manuales se trabajaron de forma guiada durante el reto.
