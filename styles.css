@@ -110,6 +110,14 @@ body {
     line-height: 1.3125rem;
 }
 
+.faq__trigger[aria-expanded='true'] .faq__icon--plus {
+    display: none;
+}
+
+.faq__trigger[aria-expanded='false'] .faq__icon--minus {
+    display: none;
+}
+
 @media screen and (min-width: 38rem) {
     body {
         background-image: url('./assets/images/background-pattern-desktop.svg');
