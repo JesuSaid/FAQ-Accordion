@@ -2,7 +2,7 @@
 
 Acordeón de preguntas frecuentes desarrollado con HTML, CSS y JavaScript como solución al [reto FAQ Accordion de Frontend Mentor](https://www.frontendmentor.io/challenges/faq-accordion-wyfFdeBwBz). El objetivo fue practicar estructura semántica, diseño responsive e interacción accesible, entendiendo cada decisión durante el desarrollo.
 
-[English version](./REAMDE-en.md) · [Repositorio](https://github.com/JesuSaid/FAQ-Accordion)
+[English version](./README-en.md) · [Repositorio](https://github.com/JesuSaid/FAQ-Accordion)
 
 ## Resultado
 
